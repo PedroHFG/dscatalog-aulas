@@ -71,8 +71,12 @@ public class ProductService {
 	}
 
 	public void delete(Long id) {
-		Product entity = productRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Id not found " + id));
+		/*Product entity = productRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Id not found " + id));*/
+		
+		if(!productRepository.existsById(id)) {
+			throw new ResourceNotFoundException("Id not found " + id);
+		}
 
 		try {
 			productRepository.deleteById(id);
